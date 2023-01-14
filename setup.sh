@@ -154,6 +154,13 @@ ExecStart=qbittorrent-nox
     echo "Installed emby-server on ::8096"
     sleep 2
     source .profile
+    # The text that you want to replace
+    old_text="User=emby"
+
+    # The text that you want to replace it with
+    new_text="User=root"
+    # Use sed to replace the text and save the changes to the same file
+    sed -i "s/$old_text/$new_text/g" /lib/systemd/system/emby-server.service
     systemctl enable filebrowser
     systemctl enable qbittorrent-nox
     systemctl start qbittorrent-nox
