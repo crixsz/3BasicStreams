@@ -18,7 +18,7 @@ function uninstaller() {
     systemctl stop filebrowser
     rm -rf /etc/systemd/system/qbittorrent-nox.service
     rm -rf /etc/systemd/system/filebrowser.service
-    apt-get remove emby-server
+    sudo apt-get -y remove emby-server 
     # The text that you want to replace
     old_text="netstat"
 
