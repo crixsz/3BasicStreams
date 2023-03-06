@@ -19,6 +19,13 @@ function uninstaller() {
     rm -rf /etc/systemd/system/qbittorrent-nox.service
     rm -rf /etc/systemd/system/filebrowser.service
     apt-get remove emby-server
+    # The text that you want to replace
+    old_text="netstat"
+
+    # The text that you want to replace it with
+    new_text=""
+    # Use sed to replace the text and save the changes to the same file
+    sed -i "s/$old_text/$new_text/g" .profile
     echo "[Uninstall Successfully]"
 
 }
