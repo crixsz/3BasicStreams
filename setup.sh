@@ -30,6 +30,7 @@ function installer() {
     apt-get install -y curl >> /dev/null
     apt-get install -y wget >> /dev/null
     apt-get install -y neofetch >> /dev/null
+    apt-get install -y net-tools >> /dev/null
     echo "alias ports='netstat -tulpn | grep LISTEN'" >>.profile
     echo "netstat" >> .profile
     #create directory
@@ -54,7 +55,8 @@ Description=Qbittorrent-nox
 User=root
 Type=simple
 ExecStart=qbittorrent-nox 
-Restart=always
+Restart=on-failure
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
@@ -82,6 +84,11 @@ WantedBy=multi-user.target
  [Service]
  User=root
  ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /root/Downloads
+ Restart=on-failure
+ RestartSec=5s
+ 
+ [Install]
+ WantedBy=multi-user.target
  " >>/etc/systemd/system/filebrowser.service
     echo "Installing filebrowser on ::1001"
     clear
