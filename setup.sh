@@ -20,7 +20,7 @@ function uninstaller() {
     rm -rf /etc/systemd/system/filebrowser.service
     sudo apt-get -y remove emby-server 
     # The text that you want to replace
-    old_text="netstat"
+    old_text="neofetch"
 
     # The text that you want to replace it with
     new_text=""
@@ -39,7 +39,7 @@ function installer() {
     apt-get install -y neofetch >> /dev/null
     apt-get install -y net-tools >> /dev/null
     echo "alias ports='netstat -tulpn | grep LISTEN'" >>.profile
-    echo "netstat" >> .profile
+    echo "neofetch" >> .profile
     #create directory
     mkdir Downloads
     clear
