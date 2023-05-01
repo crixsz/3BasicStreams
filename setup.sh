@@ -18,7 +18,7 @@ function uninstaller() {
     systemctl stop filebrowser
     rm -rf /etc/systemd/system/qbittorrent-nox.service
     rm -rf /etc/systemd/system/filebrowser.service
-    sudo apt-get -y remove emby-server 
+    apt-get -y remove emby-server 
     # The text that you want to replace
     old_text="neofetch"
 
@@ -51,8 +51,8 @@ function installer() {
     sleep 3
     echo "Installing Qbittorrent-nox on ::8080 ..."
     sleep 3
-    sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
-    sudo apt install -y qbittorrent-nox >> /dev/null
+    add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
+    apt install -y qbittorrent-nox >> /dev/null
     echo "Creating service file for qbittorrent-nox"
     echo "
 [Unit]
@@ -70,7 +70,7 @@ WantedBy=multi-user.target
 " >>/etc/systemd/system/qbittorrent-nox.service
     clear 
     sleep 2
-    sudo chmod +x /etc/systemd/system/qbittorrent-nox.service
+    chmod +x /etc/systemd/system/qbittorrent-nox.service
     echo "Installed qbittorrent-nox on ::8096"
     clear
     sleep 2
