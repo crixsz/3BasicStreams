@@ -105,7 +105,7 @@ WantedBy=multi-user.target
     sleep 5
     echo "[ Emby Server ]"
     sleep 3
-    suod chmod +x /etc/systemd/system/filebrowser.service
+    chmod +x /etc/systemd/system/filebrowser.service
     echo "Installing emby-server on ::8096"
     sleep 3
     wget https://github.com/MediaBrowser/Emby.Releases/releases/download/4.7.11.0/emby-server-deb_4.7.11.0_amd64.deb
