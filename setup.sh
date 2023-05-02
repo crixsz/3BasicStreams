@@ -39,7 +39,6 @@ function installer() {
     apt-get install -y neofetch >> /dev/null
     apt-get install -y net-tools >> /dev/null
     echo "alias ports='netstat -tulpn | grep LISTEN'" >>.profile
-    echo "neofetch" >> .profile
     #create directory
     mkdir Downloads
     clear
