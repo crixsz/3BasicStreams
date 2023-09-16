@@ -19,7 +19,7 @@ function uninstaller() {
     rm -rf /etc/systemd/system/qbittorrent-nox.service
     rm -rf /etc/systemd/system/filebrowser.service
     apt-get -y remove emby-server 
-    echo "[Uninstall Successfully]"
+    echo "[Uninstalled Successfully]"
 
 }
 
@@ -64,32 +64,6 @@ WantedBy=multi-user.target
     sleep 2
     chmod +x /etc/systemd/system/qbittorrent-nox.service
     echo "Installed qbittorrent-nox on ::8096"
-    clear
-    sleep 2
-    # installing filebrowser
-    echo "Please wait ..."
-    sleep 5
-    echo "[ FileBrowser ]"
-    sleep 3
-    echo "Installing filebrowser on ::1001 ...."
-    sleep 3
-    curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
-    sleep 2
-    echo "Creating service file for filebrowser"
-    echo "
- [Unit]
- Description= FileBrowser
-
- [Service]
- User=root
- ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /root/Downloads
- Restart=on-failure
- RestartSec=5s
- 
- [Install]
- WantedBy=multi-user.target
- " >>/etc/systemd/system/filebrowser.service
-    echo "Installing filebrowser on ::1001"
     clear
     sleep 2
     #installing emby-server
