@@ -32,12 +32,12 @@ function uninstaller() {
 
 function installer() {
     echo "[ UPDATING THE APT AND INSTALLING NECESSARY FILES ]"
-    apt-get -y update >> /dev/null
-    apt-get -y upgrade >> /dev/null
-    apt-get install -y curl >> /dev/null
-    apt-get install -y wget >> /dev/null
-    apt-get install -y neofetch >> /dev/null
-    apt-get install -y net-tools >> /dev/null
+    apt-get -y update 
+    apt-get -y upgrade 
+    apt-get install -y curl 
+    apt-get install -y wget 
+    apt-get install -y neofetch 
+    apt-get install -y net-tools 
     echo "alias ports='netstat -tulpn | grep LISTEN'" >>.profile
     #create directory
     mkdir Downloads
@@ -51,7 +51,7 @@ function installer() {
     echo "Installing Qbittorrent-nox on ::8080 ..."
     sleep 3
     add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
-    apt install -y qbittorrent-nox >> /dev/null
+    apt install -y qbittorrent-nox 
     echo "Creating service file for qbittorrent-nox"
     echo "
 [Unit]
