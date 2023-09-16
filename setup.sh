@@ -136,8 +136,7 @@ echo -e "${White}[ BASIC STREAMING TOOLS SETUP ]${ENDCOLOR}"
 echo ""
 echo -e "${Green}1. Install (FileBrowser, Qbittorrent-nox, Emby-server${ENDCOLOR}"
 echo -e "${Red}2. Uninstall (FileBrowser, Qbittorrent-nox, Emby-server${ENDCOLOR}"
-echo ":"
-
+    
 read choose
 case $choose in
 1)
