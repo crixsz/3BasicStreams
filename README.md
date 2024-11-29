@@ -7,4 +7,9 @@
   </ul>
 </p>
 <p align="center"><bold>Installation </bold></p>
-<pre><p>wget https://raw.githubusercontent.com/crixsz/3BasicStreams/dev/setup.sh && chmod +x setup.sh && bash setup.sh<p></pre>
+
+
+```
+wget https://raw.githubusercontent.com/crixsz/3BasicStreams/dev/setup.sh && chmod +x setup.sh && bash setup.sh
+
+```
