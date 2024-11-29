@@ -24,6 +24,7 @@ function uninstaller() {
 }
 
 function installer() {
+    clear
     echo "[ UPDATING THE APT AND INSTALLING NECESSARY FILES ]"
     apt-get -y update >> /dev/null
     apt-get -y upgrade >> /dev/null
@@ -37,6 +38,7 @@ function installer() {
 
     #installing qbittorrent-nox
     echo "Please wait ..."
+    sleep 3
     clear
     sleep 5
     echo "[ Qbittorent-Nox ]"
@@ -67,6 +69,7 @@ WantedBy=multi-user.target
     sleep 2
     # installing filebrowser
     echo "Please wait ..."
+    sleep 3
     clear
     sleep 5
     echo "[ FileBrowser ]"
@@ -96,6 +99,7 @@ WantedBy=multi-user.target
     sleep 2
     #installing Jellyfin
     echo "Please wait ..."
+    sleep 3
     clear
     sleep 5
     echo "[ Jellyfin Server ]"
