@@ -62,6 +62,7 @@ RestartSec=5s
 [Install]
 WantedBy=multi-user.target
 " >>/etc/systemd/system/qbittorrent-nox.service
+    sleep 2
     clear 
     sleep 2
     chmod +x /etc/systemd/system/qbittorrent-nox.service
@@ -94,6 +95,7 @@ WantedBy=multi-user.target
  WantedBy=multi-user.target
  " >>/etc/systemd/system/filebrowser.service
     echo "Installing filebrowser on ::1001"
+    sleep 2
     clear
     chmod +x /etc/systemd/system/filebrowser.service 
     echo "Installed filebrowser on ::1001"
