@@ -11,29 +11,28 @@ Cyan='\033[0;36m'   # Cyan
 White='\033[0;37m'  # White
 # List of functions
 function uninstaller() {
-    echo "Uninstalling all tools (Qbittorrent-nox, FileBrowser, Emby-server).."
+    echo "Uninstalling all tools (Qbittorrent-nox, FileBrowser, Jellyfin).."
     sleep 5
-    systemctl stop emby-server
+    systemctl stop jellyfin
     systemctl stop qbittorrent-nox
     systemctl stop filebrowser
     rm -rf /etc/systemd/system/qbittorrent-nox.service
     rm -rf /etc/systemd/system/filebrowser.service
-    apt-get -y remove emby-server 
-    echo "[Uninstalled Successfully]"
+    apt-get -y remove jellyfin
+    echo "[Uninstall Successfully]"
 
 }
 
 function installer() {
     echo "[ UPDATING THE APT AND INSTALLING NECESSARY FILES ]"
-    apt-get -y update 
-    apt-get -y upgrade 
-    apt-get install -y curl 
-    apt-get install -y wget 
-    apt-get install -y neofetch 
-    apt-get install -y net-tools 
-    echo "alias ports='netstat -tulpn | grep LISTEN'" >>.profile
+    apt-get -y update >> /dev/null
+    apt-get -y upgrade >> /dev/null
+    apt-get install -y curl >> /dev/null
+    apt-get install -y wget >> /dev/null
+    apt-get install -y neofetch >> /dev/null
     #create directory
-    mkdir Downloads
+    mkdir /root/Downloads
+    mkdir /usr/Movies
     clear
 
     #installing qbittorrent-nox
@@ -44,7 +43,7 @@ function installer() {
     echo "Installing Qbittorrent-nox on ::8080 ..."
     sleep 3
     add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
-    apt install -y qbittorrent-nox 
+    apt install -y qbittorrent-nox >> /dev/null
     echo "Creating service file for qbittorrent-nox"
     echo "
 [Unit]
@@ -66,32 +65,50 @@ WantedBy=multi-user.target
     echo "Installed qbittorrent-nox on ::8096"
     clear
     sleep 2
-    #installing emby-server
+    # installing filebrowser
     echo "Please wait ..."
     sleep 5
-    echo "[ Emby Server ]"
+    echo "[ FileBrowser ]"
+    sleep 3
+    echo "Installing filebrowser on ::1001 ...."
+    sleep 3
+    curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+    sleep 2
+    echo "Creating service file for filebrowser"
+    echo "
+ [Unit]
+ Description= FileBrowser
+
+ [Service]
+ User=root
+ ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /root/Downloads
+ Restart=on-failure
+ RestartSec=5s
+ 
+ [Install]
+ WantedBy=multi-user.target
+ " >>/etc/systemd/system/filebrowser.service
+    echo "Installing filebrowser on ::1001"
+    clear
+    sleep 2
+    #installing Jellyfin
+    echo "Please wait ..."
+    sleep 5
+    echo "[ Jellyfin Server ]"
     sleep 3
     chmod +x /etc/systemd/system/filebrowser.service
-    echo "Installing emby-server on ::8096"
+    echo "Installing jellfin-server on ::8096"
     sleep 3
-    wget https://github.com/MediaBrowser/Emby.Releases/releases/download/4.7.11.0/emby-server-deb_4.7.11.0_amd64.deb
-    dpkg -i emby-server-deb_4.7.11.0_amd64.deb
+    curl https://repo.jellyfin.org/install-debuntu.sh | bash
     clear
-    echo "Installed emby-server on ::8096"
+    echo "Installed jellyfin-server on ::8096"
     sleep 2
     source .profile
-    # The text that you want to replace
-    old_text="User=emby"
-
-    # The text that you want to replace it with
-    new_text="User=root"
-    # Use sed to replace the text and save the changes to the same file
-    sed -i "s/$old_text/$new_text/g" /lib/systemd/system/emby-server.service
     systemctl enable filebrowser
     systemctl enable qbittorrent-nox
     systemctl start qbittorrent-nox
     systemctl start filebrowser
-    systemctl start emby-server
+    systemctl start jellyfin
     systemctl restart qbittorrent-nox
     systemctl restart filebrowser
     sleep 3
@@ -101,11 +118,10 @@ WantedBy=multi-user.target
 clear
 echo -e "${White}[ BASIC STREAMING TOOLS SETUP ]${ENDCOLOR}"
 echo ""
-echo -e "${Green}1. Install (FileBrowser, Qbittorrent-nox, Emby-server${ENDCOLOR}"
-echo -e "${Red}2. Uninstall (FileBrowser, Qbittorrent-nox, Emby-server${ENDCOLOR}"
-echo ""
-echo "Please select one of the options:"
-echo ""
+echo -e "${Green}1. Install (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
+echo -e "${Red}2. Uninstall (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
+echo ":"
+
 read choose
 case $choose in
 1)
