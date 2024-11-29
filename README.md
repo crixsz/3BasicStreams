@@ -13,3 +13,11 @@
 wget https://raw.githubusercontent.com/crixsz/3BasicStreams/dev/setup.sh && chmod +x setup.sh && bash setup.sh
 
 ```
+
+<p align="center"><bold>Installation of ytarchive proxy</bold></p>
+
+
+```
+wget https://raw.githubusercontent.com/crixsz/3BasicStreams/dev/ytarchive-installer.sh && chmod +x ytarchive-installer.sh && bash ytarchive-installer.sh
+
+```
