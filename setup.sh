@@ -43,7 +43,6 @@ function installer() {
     sleep 3
     echo "Installing Qbittorrent-nox on ::8080 ..."
     sleep 3
-    add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable
     apt install -y qbittorrent-nox >> /dev/null
     echo "Creating service file for qbittorrent-nox"
     echo "
@@ -92,6 +91,8 @@ WantedBy=multi-user.target
  " >>/etc/systemd/system/filebrowser.service
     echo "Installing filebrowser on ::1001"
     clear
+    chmod +x /etc/systemd/system/filebrowser.service 
+    echo "Installed filebrowser on ::1001"
     sleep 2
     #installing Jellyfin
     echo "Please wait ..."
@@ -99,7 +100,6 @@ WantedBy=multi-user.target
     sleep 5
     echo "[ Jellyfin Server ]"
     sleep 3
-    chmod +x /etc/systemd/system/filebrowser.service
     echo "Installing jellfin-server on ::8096"
     sleep 3
     curl https://repo.jellyfin.org/install-debuntu.sh | bash
@@ -132,9 +132,7 @@ case $choose in
     echo "[ STARTING INSTALLATION ....]"
     installer
     clear
-    echo "System will reboot in 5 second"
-    sleep 5
-    reboot
+    echo "[ INSTALLATION COMPLETED ]"
     ;;
 2)
     echo "[ UNINSTALLING TOOLS ....]"
