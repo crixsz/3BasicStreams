@@ -37,6 +37,7 @@ function installer() {
 
     #installing qbittorrent-nox
     echo "Please wait ..."
+    clear
     sleep 5
     echo "[ Qbittorent-Nox ]"
     sleep 3
@@ -67,6 +68,7 @@ WantedBy=multi-user.target
     sleep 2
     # installing filebrowser
     echo "Please wait ..."
+    clear
     sleep 5
     echo "[ FileBrowser ]"
     sleep 3
@@ -93,6 +95,7 @@ WantedBy=multi-user.target
     sleep 2
     #installing Jellyfin
     echo "Please wait ..."
+    clear
     sleep 5
     echo "[ Jellyfin Server ]"
     sleep 3
