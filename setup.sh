@@ -107,7 +107,7 @@ WantedBy=multi-user.target
     sleep 3
     echo "Installing jellfin-server on ::8096"
     sleep 3
-    printf '\n' | curl https://repo.jellyfin.org/install-debuntu.sh | bash -s --
+    curl https://repo.jellyfin.org/install-debuntu.sh | bash -s -- <<< $'\n'
     clear
     echo "Installed jellyfin-server on ::8096"
     sleep 2
