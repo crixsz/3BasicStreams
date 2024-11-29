@@ -120,7 +120,8 @@ echo -e "${White}[ BASIC STREAMING TOOLS SETUP ]${ENDCOLOR}"
 echo ""
 echo -e "${Green}1. Install (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
 echo -e "${Red}2. Uninstall (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
-echo ":"
+echo ""
+echo "Enter your choice: "
 
 read choose
 case $choose in
