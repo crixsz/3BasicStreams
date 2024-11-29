@@ -11,6 +11,7 @@ Cyan='\033[0;36m'   # Cyan
 White='\033[0;37m'  # White
 # List of functions
 function uninstaller() {
+    clear
     echo "Uninstalling all tools (Qbittorrent-nox, FileBrowser, Jellyfin).."
     sleep 5
     systemctl stop jellyfin
