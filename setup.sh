@@ -31,7 +31,7 @@ function installer() {
     apt-get install -y wget >> /dev/null
     apt-get install -y neofetch >> /dev/null
     #create directory
-    mkdir /root/Downloads
+    mkdir /usr/Downloads
     mkdir /usr/Movies
     clear
 
@@ -81,7 +81,7 @@ WantedBy=multi-user.target
 
  [Service]
  User=root
- ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /root/Downloads
+ ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
  Restart=on-failure
  RestartSec=5s
  
