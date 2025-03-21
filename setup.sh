@@ -10,6 +10,36 @@ Purple='\033[0;35m' # Purple
 Cyan='\033[0;36m'   # Cyan
 White='\033[0;37m'  # White
 # List of functions
+function install_stable_filebrowser() {
+    # Define version
+    VERSION="v2.31.2"
+    # Detect system architecture
+    ARCH=$(uname -m)
+    if [[ "$ARCH" == "x86_64" ]]; then
+        FILE="linux-amd64-filebrowser.tar.gz"
+    elif [[ "$ARCH" == "aarch64" ]]; then
+        FILE="linux-arm64-filebrowser.tar.gz"
+    elif [[ "$ARCH" == "armv7l" ]]; then
+        FILE="linux-armv7-filebrowser.tar.gz"
+    else
+        echo "Unsupported architecture: $ARCH"
+        exit 1
+    fi
+    echo "Downloading FileBrowser $VERSION for $ARCH..."
+    wget -O filebrowser.tar.gz "https://github.com/filebrowser/filebrowser/releases/download/$VERSION/$FILE"
+
+    echo "Extracting..."
+    tar -xzf filebrowser.tar.gz
+
+    chmod +x filebrowser
+
+    # Move to /usr/local/bin
+    sudo mv filebrowser /usr/local/bin/
+
+    # Cleanup
+    rm filebrowser.tar.gz
+    echo "FileBrowser installed"
+}
 function uninstaller() {
     clear
     echo "Uninstalling all tools (Qbittorrent-nox, FileBrowser, Jellyfin).."
@@ -35,7 +65,6 @@ function installer() {
     mkdir /usr/Downloads
     mkdir /usr/Movies
     clear
-
     #installing qbittorrent-nox
     echo "Please wait ..."
     sleep 3
@@ -77,7 +106,7 @@ WantedBy=multi-user.target
     sleep 3
     echo "Installing filebrowser on ::1001 ...."
     sleep 3
-    curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+    install_stable_filebrowser
     sleep 2
     echo "Creating service file for filebrowser"
     echo "
