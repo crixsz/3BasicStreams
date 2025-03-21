@@ -28,7 +28,6 @@ function installer() {
     clear
     echo "[ UPDATING THE APT AND INSTALLING NECESSARY FILES ]"
     apt-get -y update >> /dev/null
-    apt-get -y upgrade >> /dev/null
     apt-get install -y curl >> /dev/null
     apt-get install -y wget >> /dev/null
     apt-get install -y neofetch >> /dev/null
