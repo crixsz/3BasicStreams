@@ -77,12 +77,6 @@ WantedBy=multi-user.target
     clear 
     sleep 2
     chmod +x /etc/systemd/system/qbittorrent-nox.service
-    
-    # Configure qBittorrent-nox default download location
-    echo "Configuring qBittorrent-nox default download location..."
-    mkdir -p ~/.config/qBittorrent
-    echo "General\DefaultSavePath=/usr/Downloads" > ~/.config/qBittorrent/qBittorrent.conf
-    
     echo "Installed qbittorrent-nox on ::8096"
     clear
     sleep 2
