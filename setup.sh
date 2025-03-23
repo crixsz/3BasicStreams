@@ -116,6 +116,10 @@ WantedBy=multi-user.target
     clear
     chmod +x /etc/systemd/system/filebrowser.service 
     echo "Installed filebrowser on ::1001"
+    systemctl enable filebrowser
+    systemctl enable qbittorrent-nox
+    systemctl start qbittorrent-nox
+    systemctl start filebrowser
 }
 function uninstaller() {
     clear
