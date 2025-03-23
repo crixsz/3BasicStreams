@@ -119,6 +119,7 @@ function uninstaller() {
     rm -rf /etc/systemd/system/qbittorrent-nox.service
     rm -rf /etc/systemd/system/filebrowser.service
     apt-get -y remove jellyfin
+    systemctl daemon-reload
     echo "[Uninstall Successfully]"
 
 }
