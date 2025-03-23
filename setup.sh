@@ -120,6 +120,7 @@ function uninstaller() {
     rm -rf /etc/systemd/system/filebrowser.service
     apt-get -y remove jellyfin
     systemctl daemon-reload
+    systemctl reset-failed
     echo "[Uninstall Successfully]"
 
 }
