@@ -41,6 +41,14 @@ function install_stable_filebrowser() {
     echo "FileBrowser installed"
 }
 function install_filebrowser_qbittorrent() {
+    #create directory
+    if [ ! -d "/usr/Downloads" ]; then
+        mkdir /usr/Downloads
+    fi
+    if [ ! -d "/usr/Movies" ]; then
+        mkdir /usr/Movies
+    fi
+    clear
     echo "Please wait ..."
     sleep 3
     clear
@@ -52,19 +60,19 @@ function install_filebrowser_qbittorrent() {
     apt install -y qbittorrent-nox >> /dev/null
     echo "Creating service file for qbittorrent-nox"
     echo "
-    [Unit]
-    Description=Qbittorrent-nox
+[Unit]
+Description=Qbittorrent-nox
 
-    [Service]
-    User=root
-    Type=simple
-    ExecStart=qbittorrent-nox 
-    Restart=on-failure
-    RestartSec=5s
+[Service]
+User=root
+Type=simple
+ExecStart=qbittorrent-nox 
+Restart=on-failure
+RestartSec=5s
 
-    [Install]
-    WantedBy=multi-user.target
-    " >>/etc/systemd/system/qbittorrent-nox.service
+[Install]
+WantedBy=multi-user.target
+" >>/etc/systemd/system/qbittorrent-nox.service
     sleep 2
     clear 
     sleep 2
@@ -91,18 +99,18 @@ function install_filebrowser_qbittorrent() {
     sleep 2
     echo "Creating service file for filebrowser"
     echo "
-    [Unit]
-    Description= FileBrowser
+[Unit]
+Description= FileBrowser
 
-    [Service]
-    User=root
-    ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
-    Restart=on-failure
-    RestartSec=5s
-    
-    [Install]
-    WantedBy=multi-user.target
-    " >>/etc/systemd/system/filebrowser.service
+[Service]
+User=root
+ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+" >>/etc/systemd/system/filebrowser.service
     echo "Installing filebrowser on ::1001"
     sleep 2
     clear
@@ -151,19 +159,19 @@ function installer() {
     apt install -y qbittorrent-nox >> /dev/null
     echo "Creating service file for qbittorrent-nox"
     echo "
-    [Unit]
-    Description=Qbittorrent-nox
+[Unit]
+Description=Qbittorrent-nox
 
-    [Service]
-    User=root
-    Type=simple
-    ExecStart=qbittorrent-nox 
-    Restart=on-failure
-    RestartSec=5s
+[Service]
+User=root
+Type=simple
+ExecStart=qbittorrent-nox 
+Restart=on-failure
+RestartSec=5s
 
-    [Install]
-    WantedBy=multi-user.target
-    " >>/etc/systemd/system/qbittorrent-nox.service
+[Install]
+WantedBy=multi-user.target
+" >>/etc/systemd/system/qbittorrent-nox.service
     sleep 2
     clear 
     sleep 2
@@ -190,18 +198,18 @@ function installer() {
     sleep 2
     echo "Creating service file for filebrowser"
     echo "
-    [Unit]
-    Description= FileBrowser
+[Unit]
+Description= FileBrowser
 
-    [Service]
-    User=root
-    ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
-    Restart=on-failure
-    RestartSec=5s
-    
-    [Install]
-    WantedBy=multi-user.target
-    " >>/etc/systemd/system/filebrowser.service
+[Service]
+User=root
+ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+" >>/etc/systemd/system/filebrowser.service
     echo "Installing filebrowser on ::1001"
     sleep 2
     clear
