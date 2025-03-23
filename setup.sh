@@ -125,12 +125,12 @@ function uninstaller() {
     clear
     echo "Uninstalling all tools (Qbittorrent-nox, FileBrowser, Jellyfin).."
     sleep 5
-    systemctl stop jellyfin
-    systemctl stop qbittorrent-nox
-    systemctl stop filebrowser
     rm -rf /etc/systemd/system/qbittorrent-nox.service
     rm -rf /etc/systemd/system/filebrowser.service
     apt-get -y remove jellyfin
+    systemctl stop jellyfin
+    systemctl stop qbittorrent-nox
+    systemctl stop filebrowser
     systemctl daemon-reload
     systemctl reset-failed
     echo "[Uninstall Successfully]"
