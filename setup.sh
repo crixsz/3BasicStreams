@@ -40,6 +40,75 @@ function install_stable_filebrowser() {
     rm filebrowser.tar.gz
     echo "FileBrowser installed"
 }
+function install_filebrowser_qbittorrent() {
+    echo "Please wait ..."
+    sleep 3
+    clear
+    sleep 5
+    echo "[ Qbittorent-Nox ]"
+    sleep 3
+    echo "Installing Qbittorrent-nox on ::8080 ..."
+    sleep 3
+    apt install -y qbittorrent-nox >> /dev/null
+    echo "Creating service file for qbittorrent-nox"
+    echo "
+    [Unit]
+    Description=Qbittorrent-nox
+
+    [Service]
+    User=root
+    Type=simple
+    ExecStart=qbittorrent-nox 
+    Restart=on-failure
+    RestartSec=5s
+
+    [Install]
+    WantedBy=multi-user.target
+    " >>/etc/systemd/system/qbittorrent-nox.service
+    sleep 2
+    clear 
+    sleep 2
+    chmod +x /etc/systemd/system/qbittorrent-nox.service
+    
+    # Configure qBittorrent-nox default download location
+    echo "Configuring qBittorrent-nox default download location..."
+    mkdir -p ~/.config/qBittorrent
+    echo "General\DefaultSavePath=/usr/Downloads" > ~/.config/qBittorrent/qBittorrent.conf
+    
+    echo "Installed qbittorrent-nox on ::8096"
+    clear
+    sleep 2
+    # installing filebrowser
+    echo "Please wait ..."
+    sleep 3
+    clear
+    sleep 5
+    echo "[ FileBrowser ]"
+    sleep 3
+    echo "Installing filebrowser on ::1001 ...."
+    sleep 3
+    install_stable_filebrowser
+    sleep 2
+    echo "Creating service file for filebrowser"
+    echo "
+    [Unit]
+    Description= FileBrowser
+
+    [Service]
+    User=root
+    ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
+    Restart=on-failure
+    RestartSec=5s
+    
+    [Install]
+    WantedBy=multi-user.target
+    " >>/etc/systemd/system/filebrowser.service
+    echo "Installing filebrowser on ::1001"
+    sleep 2
+    clear
+    chmod +x /etc/systemd/system/filebrowser.service 
+    echo "Installed filebrowser on ::1001"
+}
 function uninstaller() {
     clear
     echo "Uninstalling all tools (Qbittorrent-nox, FileBrowser, Jellyfin).."
@@ -57,13 +126,16 @@ function uninstaller() {
 function installer() {
     clear
     echo "[ UPDATING THE APT AND INSTALLING NECESSARY FILES ]"
-    apt-get -y update >> /dev/null
+    apt-get update -y >> /dev/null
     apt-get install -y curl >> /dev/null
     apt-get install -y wget >> /dev/null
-    apt-get install -y neofetch >> /dev/null
     #create directory
-    mkdir /usr/Downloads
-    mkdir /usr/Movies
+    if [ ! -d "/usr/Downloads" ]; then
+        mkdir /usr/Downloads
+    fi
+    if [ ! -d "/usr/Movies" ]; then
+        mkdir /usr/Movies
+    fi
     clear
     #installing qbittorrent-nox
     echo "Please wait ..."
@@ -77,23 +149,29 @@ function installer() {
     apt install -y qbittorrent-nox >> /dev/null
     echo "Creating service file for qbittorrent-nox"
     echo "
-[Unit]
-Description=Qbittorrent-nox
+    [Unit]
+    Description=Qbittorrent-nox
 
-[Service]
-User=root
-Type=simple
-ExecStart=qbittorrent-nox 
-Restart=on-failure
-RestartSec=5s
+    [Service]
+    User=root
+    Type=simple
+    ExecStart=qbittorrent-nox 
+    Restart=on-failure
+    RestartSec=5s
 
-[Install]
-WantedBy=multi-user.target
-" >>/etc/systemd/system/qbittorrent-nox.service
+    [Install]
+    WantedBy=multi-user.target
+    " >>/etc/systemd/system/qbittorrent-nox.service
     sleep 2
     clear 
     sleep 2
     chmod +x /etc/systemd/system/qbittorrent-nox.service
+    
+    # Configure qBittorrent-nox default download location
+    echo "Configuring qBittorrent-nox default download location..."
+    mkdir -p ~/.config/qBittorrent
+    echo "General\DefaultSavePath=/usr/Downloads" > ~/.config/qBittorrent/qBittorrent.conf
+    
     echo "Installed qbittorrent-nox on ::8096"
     clear
     sleep 2
@@ -110,18 +188,18 @@ WantedBy=multi-user.target
     sleep 2
     echo "Creating service file for filebrowser"
     echo "
- [Unit]
- Description= FileBrowser
+    [Unit]
+    Description= FileBrowser
 
- [Service]
- User=root
- ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
- Restart=on-failure
- RestartSec=5s
- 
- [Install]
- WantedBy=multi-user.target
- " >>/etc/systemd/system/filebrowser.service
+    [Service]
+    User=root
+    ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
+    Restart=on-failure
+    RestartSec=5s
+    
+    [Install]
+    WantedBy=multi-user.target
+    " >>/etc/systemd/system/filebrowser.service
     echo "Installing filebrowser on ::1001"
     sleep 2
     clear
@@ -157,7 +235,9 @@ clear
 echo -e "${White}[ BASIC STREAMING TOOLS SETUP ]${ENDCOLOR}"
 echo ""
 echo -e "${Green}1. Install (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
-echo -e "${Red}2. Uninstall (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
+echo -e "${Yellow}2. Install (FileBrowser, Qbittorrent-nox)${ENDCOLOR}"
+echo -e "${Red}3. Uninstall (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
+echo ""
 echo ""
 echo "Enter your choice: "
 
@@ -170,6 +250,12 @@ case $choose in
     echo "[ INSTALLATION COMPLETED ]"
     ;;
 2)
+    echo "[ STARTING INSTALLATION ....]"
+    install_filebrowser_qbittorrent
+    clear
+    echo "[ INSTALLATION COMPLETED ]"
+    ;;
+3)
     echo "[ UNINSTALLING TOOLS ....]"
     uninstaller
     clear
