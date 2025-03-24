@@ -252,16 +252,21 @@ echo "Enter your choice: "
 read choose
 case $choose in
 1)
-    echo "[ STARTING INSTALLATION ....]"
+    echo "[ STARTING INSTALLATION (Full)....]"
     installer
     clear
-    echo "[ INSTALLATION COMPLETED ]"
+    echo "[ INSTALLATION COMPLETED (Full) ]"
+    echo "Filebrowser = http://$(curl -s ipinfo.io/ip):1001"
+    echo "Qbittorrent = http://$(curl -s ipinfo.io/ip):8080"
+    echo "Jellyfin = http://$(curl -s ipinfo.io/ip):8096"
     ;;
 2)
     echo "[ STARTING INSTALLATION (Minimal)....]"
     install_filebrowser_qbittorrent
     clear
     echo "[ INSTALLATION COMPLETED (Minimal) ]"
+    echo "Filebrowser = http://$(curl -s ipinfo.io/ip):1001"
+    echo "Qbittorrent = http://$(curl -s ipinfo.io/ip):8080"
     ;;
 3)
     echo "[ UNINSTALLING TOOLS ....]"
