@@ -258,10 +258,10 @@ case $choose in
     echo "[ INSTALLATION COMPLETED ]"
     ;;
 2)
-    echo "[ STARTING INSTALLATION ....]"
+    echo "[ STARTING INSTALLATION (Minimal)....]"
     install_filebrowser_qbittorrent
     clear
-    echo "[ INSTALLATION COMPLETED ]"
+    echo "[ INSTALLATION COMPLETED (Minimal) ]"
     ;;
 3)
     echo "[ UNINSTALLING TOOLS ....]"
