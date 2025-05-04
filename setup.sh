@@ -45,7 +45,6 @@ function install_stable_filebrowser() {
     fi
     if [ -f "/usr/local/bin/filebrowser" ]; then
          echo "FileBrowser installed"
-    fi
     else
         echo "FileBrowser not installed.. exiting..."
         exit 1
