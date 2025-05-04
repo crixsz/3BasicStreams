@@ -18,7 +18,7 @@ jobs:
 
       - name: Upload script to VPS
         run: |
-          sshpass -p "${{ secrets.VPS_PASS }}" scp -o StrictHostKeyChecking=no ./deploy.sh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/setup.sh
+          sshpass -p "${{ secrets.VPS_PASS }}" scp -o StrictHostKeyChecking=no ./setup.sh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/root/setup.sh
           sshpass -p "${{ secrets.VPS_PASS }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} 'chmod +x /root/setup.sh'
 
       - name: Uninstall previous installation (option 3)
