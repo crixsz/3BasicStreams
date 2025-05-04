@@ -251,12 +251,11 @@ WantedBy=multi-user.target
 
 # Show prompt
 clear
-echo -e "${White}[ BASIC STREAMING TOOLS SETUP ]${ENDCOLOR}"
+echo -e "[ BASIC STREAMING TOOLS SETUP ]"
 echo ""
-echo -e "${Green}1. Install (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
-echo -e "${Yellow}2. Install (FileBrowser, Qbittorrent-nox)${ENDCOLOR}"
-echo -e "${Red}3. Uninstall (FileBrowser, Qbittorrent-nox, Jellyfin${ENDCOLOR}"
-echo ""
+echo -e "1. Install (FileBrowser, Qbittorrent-nox, Jellyfin"
+echo -e "2. Install (FileBrowser, Qbittorrent-nox)"
+echo -e "3. Uninstall (FileBrowser, Qbittorrent-nox, Jellyfin"
 echo ""
 echo "Enter your choice: "
 
