@@ -32,7 +32,7 @@ function install_stable_filebrowser() {
     chmod +x filebrowser
 
     # Move to /usr/local/bin
-    sudo mv filebrowser /usr/local/bin/
+    mv filebrowser /usr/local/bin/
 
     # Cleanup
     rm filebrowser.tar.gz
