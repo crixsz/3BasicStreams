@@ -11,8 +11,6 @@ Cyan='\033[0;36m'   # Cyan
 White='\033[0;37m'  # White
 # List of functions
 function install_stable_filebrowser() {
-    # Define version
-    VERSION="v2.31.2"
     # Detect system architecture
     ARCH=$(uname -m)
     if [[ "$ARCH" == "x86_64" ]]; then
@@ -25,8 +23,8 @@ function install_stable_filebrowser() {
         echo "Unsupported architecture: $ARCH"
         exit 1
     fi
-    echo "Downloading FileBrowser $VERSION for $ARCH..."
-    wget -O filebrowser.tar.gz "https://github.com/filebrowser/filebrowser/releases/download/$VERSION/$FILE"
+    echo "Downloading FileBrowser v2.31.2 for $ARCH..."
+    wget -O filebrowser.tar.gz "https://github.com/filebrowser/filebrowser/releases/download/v2.31.2/linux-amd64-filebrowser.tar.gz"
 
     echo "Extracting..."
     tar -xzf filebrowser.tar.gz
