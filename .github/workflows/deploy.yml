@@ -28,8 +28,8 @@ jobs:
             ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
             'TERM=xterm bash /root/setup.sh <<< "3"'
 
-      - name: Install minimal setup (option 2)
+      - name: Install full setup (option 1)
         run: |
           sshpass -p "${{ secrets.VPS_PASS }}" ssh -o StrictHostKeyChecking=no \
             ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
-            'TERM=xterm bash /root/setup.sh <<< "2"'
+            'TERM=xterm bash /root/setup.sh <<< "1"'
