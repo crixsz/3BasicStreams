@@ -10,7 +10,45 @@ Purple='\033[0;35m' # Purple
 Cyan='\033[0;36m'   # Cyan
 White='\033[0;37m'  # White
 # List of functions
+function install_qbittorrent_nox() {
+    echo "[ Qbittorent-Nox ]"
+    sleep 3
+    echo "Installing Qbittorrent-nox on ::8080 ..."
+    sleep 3
+    apt install -y qbittorrent-nox >> /dev/null
+    echo "Creating service file for qbittorrent-nox"
+    echo "
+[Unit]
+Description=Qbittorrent-nox
+
+[Service]
+User=root
+Type=simple
+ExecStart=qbittorrent-nox 
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+" >>/etc/systemd/system/qbittorrent-nox.service
+    sleep 2
+    clear 
+    sleep 2
+    chmod +x /etc/systemd/system/qbittorrent-nox.service
+    # Check if qbittorrent-nox service is running
+    if systemctl is-active --quiet qbittorrent-nox; then
+        echo "qbittorrent-nox service is running."
+    else
+        echo "qbittorrent-nox service is not running. Exiting..."
+        exit 1
+    fi
+}
+
 function install_stable_filebrowser() {
+    echo "[ FileBrowser ]"
+    sleep 3
+    echo "Installing filebrowser on ::1001 ...."
+    sleep 3
     # Detect system architecture
     ARCH=$(uname -m)
     if [[ "$ARCH" == "x86_64" ]]; then
@@ -45,6 +83,25 @@ function install_stable_filebrowser() {
     fi
     if [ -f "/usr/local/bin/filebrowser" ]; then
          echo "FileBrowser installed"
+         echo "Creating service file for filebrowser"
+         echo "
+[Unit]
+Description= FileBrowser
+
+[Service]
+User=root
+ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+" >>/etc/systemd/system/filebrowser.service
+    echo "Installing filebrowser on ::1001"
+    sleep 2
+    clear
+    chmod +x /etc/systemd/system/filebrowser.service 
+    echo "Installed filebrowser on ::1001"
     else
         echo "FileBrowser not installed.. exiting..."
         exit 1
@@ -63,64 +120,16 @@ function install_filebrowser_qbittorrent() {
     echo "Please wait ..."
     sleep 3
     clear
-    sleep 5
-    echo "[ Qbittorent-Nox ]"
-    sleep 3
-    echo "Installing Qbittorrent-nox on ::8080 ..."
-    sleep 3
-    apt install -y qbittorrent-nox >> /dev/null
-    echo "Creating service file for qbittorrent-nox"
-    echo "
-[Unit]
-Description=Qbittorrent-nox
-
-[Service]
-User=root
-Type=simple
-ExecStart=qbittorrent-nox 
-Restart=on-failure
-RestartSec=5s
-
-[Install]
-WantedBy=multi-user.target
-" >>/etc/systemd/system/qbittorrent-nox.service
-    sleep 2
-    clear 
-    sleep 2
-    chmod +x /etc/systemd/system/qbittorrent-nox.service
-    echo "Installed qbittorrent-nox on ::8096"
+    install_qbittorrent_nox
     clear
     sleep 2
     # installing filebrowser
     echo "Please wait ..."
     sleep 3
     clear
-    sleep 5
-    echo "[ FileBrowser ]"
-    sleep 3
-    echo "Installing filebrowser on ::1001 ...."
     sleep 3
     install_stable_filebrowser
     sleep 2
-    echo "Creating service file for filebrowser"
-    echo "
-[Unit]
-Description= FileBrowser
-
-[Service]
-User=root
-ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
-Restart=on-failure
-RestartSec=5s
-
-[Install]
-WantedBy=multi-user.target
-" >>/etc/systemd/system/filebrowser.service
-    echo "Installing filebrowser on ::1001"
-    sleep 2
-    clear
-    chmod +x /etc/systemd/system/filebrowser.service 
-    echo "Installed filebrowser on ::1001"
     systemctl enable filebrowser
     systemctl enable qbittorrent-nox
     systemctl start qbittorrent-nox
@@ -161,31 +170,7 @@ function installer() {
     sleep 3
     clear
     sleep 5
-    echo "[ Qbittorent-Nox ]"
-    sleep 3
-    echo "Installing Qbittorrent-nox on ::8080 ..."
-    sleep 3
-    apt install -y qbittorrent-nox >> /dev/null
-    echo "Creating service file for qbittorrent-nox"
-    echo "
-[Unit]
-Description=Qbittorrent-nox
-
-[Service]
-User=root
-Type=simple
-ExecStart=qbittorrent-nox 
-Restart=on-failure
-RestartSec=5s
-
-[Install]
-WantedBy=multi-user.target
-" >>/etc/systemd/system/qbittorrent-nox.service
-    sleep 2
-    clear 
-    sleep 2
-    chmod +x /etc/systemd/system/qbittorrent-nox.service
-    
+    install_qbittorrent_nox
     # Configure qBittorrent-nox default download location
     echo "Configuring qBittorrent-nox default download location..."
     mkdir -p ~/.config/qBittorrent
@@ -198,32 +183,8 @@ WantedBy=multi-user.target
     echo "Please wait ..."
     sleep 3
     clear
-    sleep 5
-    echo "[ FileBrowser ]"
-    sleep 3
-    echo "Installing filebrowser on ::1001 ...."
     sleep 3
     install_stable_filebrowser
-    sleep 2
-    echo "Creating service file for filebrowser"
-    echo "
-[Unit]
-Description= FileBrowser
-
-[Service]
-User=root
-ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
-Restart=on-failure
-RestartSec=5s
-
-[Install]
-WantedBy=multi-user.target
-" >>/etc/systemd/system/filebrowser.service
-    echo "Installing filebrowser on ::1001"
-    sleep 2
-    clear
-    chmod +x /etc/systemd/system/filebrowser.service 
-    echo "Installed filebrowser on ::1001"
     sleep 2
     #installing Jellyfin
     echo "Please wait ..."
