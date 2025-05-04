@@ -35,6 +35,7 @@ WantedBy=multi-user.target
     clear 
     sleep 2
     chmod +x /etc/systemd/system/qbittorrent-nox.service
+    systemctl start qbittorrent-nox
     # Check if qbittorrent-nox service is running
     if systemctl is-active --quiet qbittorrent-nox; then
         echo "qbittorrent-nox service is running."
