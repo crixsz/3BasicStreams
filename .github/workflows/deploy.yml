@@ -24,8 +24,12 @@ jobs:
       - name: Uninstall previous installation (option 3)
         continue-on-error: true
         run: |
-          sshpass -p "${{ secrets.VPS_PASS }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} 'echo "3" | bash /root/setup.sh'
+          sshpass -p "${{ secrets.VPS_PASS }}" ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
+            'TERM=xterm bash /root/setup.sh <<< "3"'
 
       - name: Install minimal setup (option 2)
         run: |
-          sshpass -p "${{ secrets.VPS_PASS }}" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} 'echo "2" | bash /root/setup.sh'
+          sshpass -p "${{ secrets.VPS_PASS }}" ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
+            'TERM=xterm bash /root/setup.sh <<< "2"'
