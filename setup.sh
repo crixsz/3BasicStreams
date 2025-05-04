@@ -35,8 +35,22 @@ function install_stable_filebrowser() {
     mv filebrowser /usr/local/bin/
 
     # Cleanup
-    rm filebrowser.tar.gz
-    echo "FileBrowser installed"
+    rm -rf filebrowser.tar.gz
+    rm -rf CHANGELOG.md
+    rm -rf README.md
+    rm -rf LICENSE
+    # Remove existing filebrowser binary if it exists
+    if [ -f "/root/filebrowser" ]; then
+        rm -rf /root/filebrowser
+    fi
+    if [ -f "/usr/local/bin/filebrowser" ]; then
+         echo "FileBrowser installed"
+    fi
+    else
+        echo "FileBrowser not installed.. exiting..."
+        exit 1
+    fi
+   
 }
 function install_filebrowser_qbittorrent() {
     #create directory
