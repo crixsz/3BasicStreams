@@ -196,7 +196,7 @@ function installer() {
     sleep 3
     echo "Installing jellfin-server on ::8096"
     sleep 3
-    curl https://repo.jellyfin.org/install-debuntu.sh | bash -s -- <<< $'\n'
+    curl -s https://repo.jellyfin.org/install-debuntu.sh | bash
     clear
     echo "Installed jellyfin-server on ::8096"
     sleep 2
