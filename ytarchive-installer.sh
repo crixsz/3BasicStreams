@@ -31,7 +31,7 @@ if [ ! -d "/usr/Downloads" ]; then
     mkdir /usr/Downloads
 fi
 
-wget https://raw.githubusercontent.com/crixsz/3BasicStreams/dev/files/ytcookie && chmod +x ytcookie
-wget https://raw.githubusercontent.com/crixsz/3BasicStreams/dev/files/cookie.txt -O /usr/Downloads/cookie.txt
+wget https://raw.githubusercontent.com/crixsz/3BasicStreams/refs/heads/main/files/ytcookie && chmod +x ytcookie
+wget https://raw.githubusercontent.com/crixsz/3BasicStreams/refs/heads/main/files/cookie.txt -O /usr/Downloads/cookie.txt
 # copy ytcookie to /usr/local/bin/
 mv ytcookie /usr/local/bin
