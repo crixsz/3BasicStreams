@@ -45,71 +45,61 @@ WantedBy=multi-user.target
     fi
 }
 
-function install_stable_filebrowser() {
-    echo "[ FileBrowser ]"
-    sleep 3
-    echo "Installing filebrowser on ::1001 ...."
-    sleep 3
-    # Detect system architecture
-    ARCH=$(uname -m)
-    if [[ "$ARCH" == "x86_64" ]]; then
-        FILE="linux-amd64-filebrowser.tar.gz"
-    elif [[ "$ARCH" == "aarch64" ]]; then
-        FILE="linux-arm64-filebrowser.tar.gz"
-    elif [[ "$ARCH" == "armv7l" ]]; then
-        FILE="linux-armv7-filebrowser.tar.gz"
-    else
-        echo "Unsupported architecture: $ARCH"
-        exit 1
+function install_stable_AList() {
+    echo "[ AList ]"
+    echo "Installing AList..."
+        
+    # Stop the service if it exists
+    if [ -f /etc/systemd/system/alist.service ]; then
+        systemctl stop alist || true
     fi
-    echo "Downloading FileBrowser v2.31.2 for $ARCH..."
-    wget -O filebrowser.tar.gz "https://github.com/filebrowser/filebrowser/releases/download/v2.31.2/linux-amd64-filebrowser.tar.gz"
-
-    echo "Extracting..."
-    tar -xzf filebrowser.tar.gz
-
-    chmod +x filebrowser
-
-    # Move to /usr/local/bin
-    mv filebrowser /usr/local/bin/
-
-    # Cleanup
-    rm -rf filebrowser.tar.gz
-    rm -rf CHANGELOG.md
-    rm -rf README.md
-    rm -rf LICENSE
-    # Remove existing filebrowser binary if it exists
-    if [ -f "/root/filebrowser" ]; then
-        rm -rf /root/filebrowser
-    fi
-    if [ -f "/usr/local/bin/filebrowser" ]; then
-         echo "FileBrowser installed"
-         echo "Creating service file for filebrowser"
-         echo "
+    
+    # Create the data directory
+    mkdir -p /var/lib/alist
+    
+    # Download the AList tarball
+    wget https://github.com/AlistGo/alist/releases/download/v3.45.0/alist-linux-amd64.tar.gz -O /tmp/alist-linux-amd64.tar.gz
+    
+    # Extract the tarball
+    tar -zxvf /tmp/alist-linux-amd64.tar.gz -C /tmp
+    
+    # Move the binary to /usr/local/bin and make it executable
+    mv /tmp/alist /usr/local/bin/alist
+    chmod +x /usr/local/bin/alist
+    
+    # Set the admin password in the data directory
+    cd /var/lib/alist
+    /usr/local/bin/alist admin set zoxxenon
+    
+    # Create the systemd service file
+    cat > /etc/systemd/system/alist.service <<EOF
 [Unit]
-Description= FileBrowser
+Description=AList Service
+After=network.target
 
 [Service]
+Type=simple
 User=root
-ExecStart=filebrowser -a 0.0.0.0 -p 1001 -r /usr/Downloads
-Restart=on-failure
-RestartSec=5s
+WorkingDirectory=/var/lib/alist
+ExecStart=/usr/local/bin/alist server
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
-" >>/etc/systemd/system/filebrowser.service
-    echo "Installing filebrowser on ::1001"
-    sleep 2
-    clear
-    chmod +x /etc/systemd/system/filebrowser.service 
-    echo "Installed filebrowser on ::1001"
-    else
-        echo "FileBrowser not installed.. exiting..."
-        exit 1
-    fi
-   
+EOF
+        
+    # Reload systemd, start, and enable the service
+    systemctl daemon-reload
+    systemctl start alist
+    systemctl enable alist
+    
+    # Clean up the temporary tarball
+    rm /tmp/alist-linux-amd64.tar.gz
+    
+    echo "AList installed successfully."
 }
-function install_filebrowser_qbittorrent() {
+
+function install_AList_qbittorrent() {
     #create directory
     if [ ! -d "/usr/Downloads" ]; then
         mkdir /usr/Downloads
@@ -124,30 +114,38 @@ function install_filebrowser_qbittorrent() {
     install_qbittorrent_nox
     clear
     sleep 2
-    # installing filebrowser
+    # installing AList
     echo "Please wait ..."
     sleep 3
     clear
     sleep 3
-    install_stable_filebrowser
+    install_stable_AList
     sleep 2
-    systemctl enable filebrowser
+    systemctl enable AList
     systemctl enable qbittorrent-nox
     systemctl start qbittorrent-nox
-    systemctl start filebrowser
+    systemctl start AList
 }
 function uninstaller() {
     clear
-    echo "Uninstalling all tools (Qbittorrent-nox, FileBrowser, Jellyfin).."
+    echo "Uninstalling all tools (Qbittorrent-nox, AList, Jellyfin).."
     sleep 5
     rm -rf /etc/systemd/system/qbittorrent-nox.service
-    rm -rf /etc/systemd/system/filebrowser.service
+    rm -rf /etc/systemd/system/AList.service
     apt-get -y remove jellyfin
     systemctl stop jellyfin
     systemctl stop qbittorrent-nox
-    systemctl stop filebrowser
+    systemctl stop AList
     systemctl daemon-reload
     systemctl reset-failed
+    echo "Uninstalling AList..."
+    systemctl stop alist || true
+    systemctl disable alist || true
+    rm -f /etc/systemd/system/alist.service
+    systemctl daemon-reload
+    rm -f /usr/local/bin/alist
+    rm -rf /var/lib/alist
+    echo "AList uninstalled successfully."
     echo "[Uninstall Successfully]"
 
 }
@@ -180,12 +178,12 @@ function installer() {
     echo "Installed qbittorrent-nox on ::8096"
     clear
     sleep 2
-    # installing filebrowser
+    # installing AList
     echo "Please wait ..."
     sleep 3
     clear
     sleep 3
-    install_stable_filebrowser
+    install_stable_AList
     sleep 2
     #installing Jellyfin
     echo "Please wait ..."
@@ -201,13 +199,13 @@ function installer() {
     echo "Installed jellyfin-server on ::8096"
     sleep 2
     source .profile
-    systemctl enable filebrowser
+    systemctl enable AList
     systemctl enable qbittorrent-nox
     systemctl start qbittorrent-nox
-    systemctl start filebrowser
+    systemctl start AList
     systemctl start jellyfin
     systemctl restart qbittorrent-nox
-    systemctl restart filebrowser
+    systemctl restart AList
     sleep 3
 }
 
@@ -215,9 +213,9 @@ function installer() {
 clear
 echo -e "[ BASIC STREAMING TOOLS SETUP ]"
 echo ""
-echo -e "1. Install (FileBrowser, Qbittorrent-nox, Jellyfin"
-echo -e "2. Install (FileBrowser, Qbittorrent-nox)"
-echo -e "3. Uninstall (FileBrowser, Qbittorrent-nox, Jellyfin"
+echo -e "1. Install (AList, Qbittorrent-nox, Jellyfin"
+echo -e "2. Install (AList, Qbittorrent-nox)"
+echo -e "3. Uninstall (AList, Qbittorrent-nox, Jellyfin"
 echo ""
 echo "Enter your choice: "
 
@@ -228,16 +226,16 @@ case $choose in
     installer
     clear
     echo "[ INSTALLATION COMPLETED (Full) ]"
-    echo "Filebrowser = http://$(curl -s ipinfo.io/ip):1001"
+    echo "AList = http://$(curl -s ipinfo.io/ip):5244"
     echo "Qbittorrent = http://$(curl -s ipinfo.io/ip):8080"
     echo "Jellyfin = http://$(curl -s ipinfo.io/ip):8096"
     ;;
 2)
     echo "[ STARTING INSTALLATION (Minimal)....]"
-    install_filebrowser_qbittorrent
+    install_AList_qbittorrent
     clear
     echo "[ INSTALLATION COMPLETED (Minimal) ]"
-    echo "Filebrowser = http://$(curl -s ipinfo.io/ip):1001"
+    echo "AList = http://$(curl -s ipinfo.io/ip):5244"
     echo "Qbittorrent = http://$(curl -s ipinfo.io/ip):8080"
     ;;
 3)
