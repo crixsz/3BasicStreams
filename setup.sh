@@ -215,8 +215,6 @@ clear
 if [ -f /usr/local/bin/alist ] || [ -f /usr/bin/jellyfin ] || [ -f /usr/bin/qbittorrent-nox ]; then
     echo "[ WARNING ]"
     echo "It seems that you already have AList, Qbittorrent-nox, or Jellyfin installed."
-    echo "Uninstalling ..."
-    uninstaller
 fi
 echo -e "[ BASIC STREAMING TOOLS SETUP ]"
 echo ""
