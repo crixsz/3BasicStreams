@@ -10,7 +10,7 @@
 
 
 ```
-wget https://raw.githubusercontent.com/crixsz/3BasicStreams/main/setup.sh && chmod +x setup.sh && bash setup.sh
+wget https://raw.githubusercontent.com/crixsz/3BasicStreams/testing/setup.sh && chmod +x setup.sh && bash setup.sh
 
 ```
 
@@ -18,6 +18,6 @@ wget https://raw.githubusercontent.com/crixsz/3BasicStreams/main/setup.sh && chm
 
 
 ```
-wget https://raw.githubusercontent.com/crixsz/3BasicStreams/main/ytarchive-installer.sh && chmod +x ytarchive-installer.sh && bash ytarchive-installer.sh
+wget https://raw.githubusercontent.com/crixsz/3BasicStreams/testing/ytarchive-installer.sh && chmod +x ytarchive-installer.sh && bash ytarchive-installer.sh
 
 ```
