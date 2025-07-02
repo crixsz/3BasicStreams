@@ -10,7 +10,7 @@
 
 
 ```
-wget https://raw.githubusercontent.com/crixsz/3BasicStreams/testing/setup.sh && chmod +x setup.sh && bash setup.sh
+wget https://raw.githubusercontent.com/crixsz/3BasicStreams/testing/setupstream.sh && chmod +x setupstream.sh && bash setupstream.sh
 
 ```
 
