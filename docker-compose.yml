@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  alist:
+    image: xhofe/alist:latest
+    container_name: alist
+    ports:
+      - "5244:5244"
+    volumes:
+      - ./config/alist:/opt/alist/data
+      - ./data/Files:/data
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
+    volumes:
+      - ./config/qbittorrent:/config
+      - ./data:/downloads
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8080
+    restart: unless-stopped
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    ports:
+      - "8096:8096"
+    volumes:
+      - ./config/jellyfin:/config
+      - ./data/Movie:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    restart: unless-stopped
+
+  ytarchive:
+    build: .
+    container_name: ytarchive
+    volumes:
+      - ./data/Archive:/data
+    stdin_open: true
+    tty: true
