@@ -4,7 +4,7 @@ echo "Enter youtube live link: "
 read URL
 
 # Proxy settings (adjust as needed)
-cookiepath="/usr/Downloads/cookie.txt"
+cookiepath="/root/cookie.txt"
 
 # Run ytarchive
 ytarchive --threads 20 --cookies $cookiepath $URL 720p60 best
