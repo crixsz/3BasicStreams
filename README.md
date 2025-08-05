@@ -55,4 +55,5 @@ To download a YouTube live stream, you can use the provided `ytcookie` helper sc
     -   `Archive/`: Default location for `ytarchive` downloads.
     -   `Movie/`: Default media library for Jellyfin.
     -   `Files/`: Default file storage for Alist.
+    -   `Torrents/`: Stores qBittorrent torrent files.
 -   `files/`: Contains your `cookie.txt` and the `ytcookie` helper script.
