@@ -23,7 +23,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Asia/Singapore
       - WEBUI_PORT=8080
     restart: unless-stopped
 
@@ -38,7 +38,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Asia/Singapore
     restart: unless-stopped
 
   ytarchive:
