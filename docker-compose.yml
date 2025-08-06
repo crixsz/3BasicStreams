@@ -41,11 +41,4 @@ services:
       - TZ=Asia/Singapore
     restart: unless-stopped
 
-  ytarchive:
-    build: .
-    container_name: ytarchive
-    volumes:
-      - ./data/Archive:/data
-    stdin_open: true
-    tty: true
-    restart: unless-stopped
+  
