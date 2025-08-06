@@ -48,3 +48,4 @@ services:
       - ./data/Archive:/data
     stdin_open: true
     tty: true
+    restart: unless-stopped
