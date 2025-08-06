@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Stop specific containers
-docker stop alist qbittorrent jellyfin ytarchive
+docker stop alist qbittorrent jellyfin
 
 # Remove specific containers
-docker rm alist qbittorrent jellyfin ytarchive
+docker rm alist qbittorrent jellyfin
