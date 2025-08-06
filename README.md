@@ -39,12 +39,12 @@ To download a YouTube live stream, you can use the provided `ytcookie` helper sc
 
 -   **Using the helper script (prompts for URL):**
     ```bash
-    docker-compose run --rm ytarchive ytcookie
+    docker compose run --rm ytarchive ytcookie
     ```
 
 -   **Running `ytarchive` directly:**
     ```bash
-    docker-compose run --rm ytarchive -o "/data/%(title)s.%(ext)s" <video-url>
+    docker compose run --rm ytarchive -o "/data/%(title)s.%(ext)s" <video-url>
     ```
     Downloaded videos will be saved to the `./data/Archive` directory on your host machine.
 
