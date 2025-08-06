@@ -9,18 +9,11 @@ This project provides a simple, Dockerized setup for a basic streaming media ser
 
 ## Installation & Usage
 
-1.  **Clone the repository:**
-    ```bash
-    git clone -b testing https://github.com/crixsz/3BasicStreams.git
-    cd 3BasicStreams
-    ```
+**One-liner**
+```bash
+git clone -b testing https://github.com/crixsz/3BasicStreams.git && cd 3BasicStreams && chmod +x start.sh && ./start.sh
+```
 
-2.  **Start the services:**
-    Run the `start.sh` script to launch all the services.
-    ```bash
-    chmod +x start.sh
-    ./start.sh
-    ```
 
 ## Accessing Services
 
