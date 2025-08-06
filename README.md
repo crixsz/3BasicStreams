@@ -11,7 +11,7 @@ This project provides a simple, Dockerized setup for a basic streaming media ser
 
 **One-liner**
 ```bash
-git clone -b testing https://github.com/crixsz/3BasicStreams.git && cd 3BasicStreams && chmod +x start.sh && ./start.sh
+git clone https://github.com/crixsz/3BasicStreams.git && cd 3BasicStreams && chmod +x start.sh && ./start.sh
 ```
 
 
