@@ -14,6 +14,9 @@ RUN wget https://github.com/Kethsar/ytarchive/releases/download/v0.5.0/ytarchive
 COPY files/ytcookie /usr/local/bin/ytcookie
 COPY files/cookie.txt /root/cookie.txt
 
+# Make it executable
+chmod +x /usr/local/bin/ytcookie
+
 # Set the working directory
 WORKDIR /data
 
