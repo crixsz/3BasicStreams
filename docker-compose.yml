@@ -7,7 +7,7 @@ services:
       - "5244:5244"
     volumes:
       - ./config/alist:/opt/alist/data
-      - ./data/Files:/data
+      - ./data/:/data
     restart: unless-stopped
 
   qbittorrent:
