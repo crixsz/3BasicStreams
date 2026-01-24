@@ -23,6 +23,19 @@ Once the containers are running, you can access the services at the following UR
 -   **qBittorrent:** `http://<your-server-ip>:8080`
 -   **Jellyfin:** `http://<your-server-ip>:8096`
 
+## Credential
+- **qBittorrent**
+  - Username: `admin`
+  - Password: `admin`
+
+- **Alist**
+  - Username: `admin`
+  - Password: `admin`
+
+- **Jellyfin**
+  - Username: (Set manually during first setup)
+  - Password: (Set manually during first setup)
+
 ## Directory Structure
 
 -   `config/`: Stores the persistent configuration for Alist, qBittorrent, and Jellyfin.
